@@ -11,7 +11,6 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
-import java.util.stream.Collectors;
 
 import org.postgresql.core.Oid;
 import org.postgresql.util.PGobject;
@@ -227,20 +226,8 @@ public class PgmqJdbcClient {
 						pgObject.setValue(value);
 						ps.setObject(i + 1, pgObject);
 					} else if (params[i] instanceof Json[] jsons) {
-//						PGobject[] pgObjects = new PGobject[jsons.length];
-//						for (int j = 0; j < jsons.length; j++) {
-//							PGobject pgObject = new PGobject();
-//							pgObject.setType(Oid.toString(Oid.JSONB));
-//							pgObject.setValue(jsons[j].value());
-//						}
-//						ps.setArray(i + 1, connection.createArrayOf("jsonb[]", pgObjects));
 						String[] values = Arrays.stream(jsons).map(Json::value).toArray(String[]::new);
-						ps.setArray(i + 1, connection.createArrayOf("jsonb", values));
-
-//						PGobject pgObject = new PGobject();
-//						pgObject.setType(Oid.toString(Oid.JSONB_ARRAY));
-//						pgObject.setValue(Arrays.stream(jsons).map(Json::value).collect(Collectors.joining(", ", "[", "]")));
-//						ps.setObject(i + 1, pgObject);
+						ps.setArray(i + 1, connection.createArrayOf(Oid.toString(Oid.JSONB), values));
 					} else if (params[i] instanceof String text) {
 						PGobject pgObject = new PGobject();
 						pgObject.setType(Oid.toString(Oid.TEXT));

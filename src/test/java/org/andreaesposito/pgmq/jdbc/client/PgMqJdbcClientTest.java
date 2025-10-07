@@ -27,6 +27,7 @@ import org.testcontainers.utility.DockerImageName;
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 class PgMqJdbcClientTest {
 
+	@SuppressWarnings("resource")
 	@Container
 	public static GenericContainer<?> database = new GenericContainer<>(DockerImageName.parse("ghcr.io/pgmq/pg17-pgmq:v1.6.1")).withEnv("POSTGRES_PASSWORD", "postgres").withExposedPorts(5432);
 
