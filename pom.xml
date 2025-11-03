@@ -37,7 +37,6 @@
 			<version>1.21.3</version>
 			<scope>test</scope>
 		</dependency>
-
 		<dependency>
 			<groupId>org.apache.logging.log4j</groupId>
 			<artifactId>log4j-slf4j-impl</artifactId>
@@ -45,4 +44,12 @@
 			<scope>test</scope>
 		</dependency>
 	</dependencies>
+	
+	 <distributionManagement>
+        <repository>
+            <id>github</id>
+            <name>GitHub Packages</name>
+            <url>https://maven.pkg.github.com/roy20021/pgmq-jdbc-client</url>
+        </repository>
+    </distributionManagement>
 </project>
